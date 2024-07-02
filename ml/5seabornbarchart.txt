@@ -27,7 +27,7 @@ plt.show()
 
 
 
-or this program copy anyone    
+or this program copy anyone    /////
 
 
 
