@@ -1,0 +1,52 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+from sklearn.datasets import load_iris
+
+iris = load_iris()
+iris_df = pd.DataFrame(data=iris.data, columns=iris.feature_names)
+iris_df['species'] = iris.target
+
+plt.figure(figsize=(8, 6))
+plt.scatter(iris_df['sepal length (cm)'], iris_df['sepal width (cm)'], c=iris_df['species'])
+plt.xlabel('sepal length (cm)')
+plt.ylabel('sepal width (cm)')  
+plt.title('Scatter Plot of Sepal Length vs Sepal Width (Iris Dataset)')  
+plt.show()
+
+plt.figure(figsize=(8, 6))  
+sns.countplot(x='species', data=iris_df, palette='viridis')
+plt.xlabel('Species') 
+plt.ylabel('Count') 
+plt.title('Bar Chart: Count of Each Species') 
+plt.show()
+
+sns.pairplot(iris_df,hue='species',palette='viridis',diag_kind='hist')
+plt.title("pairplot of the dataset")
+plt.show()    
+
+
+
+or this program copy anyone    
+
+
+
+import pandas as pd 
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+def visualize_data(file_path):
+    df = pd.read_csv(file_path) 
+    sns.pairplot(df,hue='Species',palette='viridis',diag_kind='list')
+    plt.title("Pair plot of dataset")
+    plt.show()
+    if df.iloc[:,-1].dtype == 'object': 
+        sns.countplot(x=df.columns[-1], data=df) 
+        plt.title("Bar chart of categorical column")
+        plt.xlabel(df.columns[0])  
+        plt.ylabel("Count")
+        plt.show()
+    else:
+        print("No categorical column found to plot the bar chart")
+file_path = 'Iris.csv' 
+visualize_data(file_path)

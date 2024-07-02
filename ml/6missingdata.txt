@@ -1,0 +1,39 @@
+import pandas as pd
+from sklearn.datasets import load_iris
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler, LabelEncoder
+
+iris = load_iris()
+
+iris_df = pd.DataFrame(data=iris.data, columns=iris.feature_names)
+
+iris_df['species'] = iris.target
+
+print("\nIRIS dataset before Preprocessing\n")
+print(iris_df)
+
+iris_df.iloc[:5, 0] = float('NaN')
+
+print("\nDataset before imputation introducing NaN values\n")
+print(iris_df)
+
+imputer = SimpleImputer(strategy='mean')
+iris_df[iris_df.columns] = imputer.fit_transform(iris_df[iris_df.columns])
+
+print("\nDataset after imputation\n")
+print(iris_df)
+
+print("\nUnique categories before label encoding\n")
+print(set(iris.target))
+
+label_encoder = LabelEncoder()
+iris_df['species'] = label_encoder.fit_transform(iris_df['species'])
+print("\nUnique Categories after label encoding:\n")
+print(set(iris_df['species']))
+
+scaler = StandardScaler()
+print("\nDataset before Scaling:\n")
+print(iris_df.head())
+print("\nDataset after Scaling:\n")
+iris_df[iris_df.columns[:-1]] = scaler.fit_transform(iris_df[iris_df.columns[:-1]])
+print(iris_df.head())

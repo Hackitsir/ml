@@ -1,0 +1,19 @@
+import pandas as pd
+from sklearn.datasets import load_iris
+
+x = load_iris()
+df = pd.DataFrame(data=x.data, columns=x.feature_names)
+df['species'] = x.target
+
+print("Dataset information:")
+print(df.info())
+
+print("\nFirst few rows:")
+print(df.head())
+
+print("\nDescriptive statistics:")
+print(df.describe())
+
+print('\nUnique values for categorical columns:')
+for column in df.select_dtypes(include=['float']):
+    print(f"{column}: {df[column].unique()}")

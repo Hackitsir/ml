@@ -1,0 +1,18 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_blobs
+from sklearn.cluster import KMeans
+X,y= make_blobs (n_samples=500, centers=4, cluster_std=0.8, random_state=42)
+KMeans = KMeans(n_clusters=4, random_state=42) 
+KMeans.fit(X)
+cluster_labels = KMeans.labels_ 
+cluster_centers=KMeans.cluster_centers_
+plt.figure(figsize=(8, 6))
+plt.scatter (X[:, 0], X[:, 1], c=cluster_labels, cmap='viridis')
+plt.scatter(cluster_centers[:, 0], cluster_centers [:, 1], s=100, c='red', label='Centroids')
+plt.title('K-Means Clustering')
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.legend()
+plt.grid() 
+plt.show()
